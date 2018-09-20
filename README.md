@@ -1,107 +1,84 @@
 cordova-plugin-timer
 ============================
-Animated Splash Screen Plugin
-
-1. Animation based on changing images one-by-one. Created animation slides and place to the resourses directory
-2. Update config.xml file (listed below)
+Cordova native timer plugin
 
 ### Installation
-// npm hosted (new) id
 cordova plugin add cordova-plugin-timer
 
 // you may also install directly from this repo
 cordova plugin add https://github.com/kitolog/cordova-plugin-timer
  
+## Sample usage
+Here is simple example of how to connect to remote server, consume data from it and close the connection.
 
-### Setup:
-#### Add to config.xml:
-#### Common:
-Duration in seconds
+Create instance of Socket type:
+```
+var timer = new window.nativeTimer();
+```
 
-`<preference name="AnimatedSplashScreenAnimationDuration" value="5" />`
+Set data consumer, error and close handlers:
+```
+timer.onTick = function(tick) {
+  // invoked on tick
+};
+timer.onError = function(errorMessage) {
+  // invoked after error occurs
+};
+timer.onStop during connection = function(hasError) {
+  // invoked after stop
+};
+```
+Start timer with delay 1ms and repeat 1000ms
+```
+timer.start(
+  1,
+  1000,
+  function() {
+    // invoked after successful start
+  },
+  function(errorMessage) {
+    // invoked after unsuccessful start
+  });
+```
 
-Disable original splashscreen plugin, it's not needed
+stop the timer
+```
+timer.stop();
+```
 
-`<preference name="SplashScreen" value="none" />`
+## API
+### Event handlers
+#### `onTick: (data: int) => void`
+Invoked after new batch of data is received by the client. Data are represented as typed array of bytes (`Uint8Array`).
 
-Repeat count
+#### `onStop: (hasError: boolean) => void`
+Invoked after connection close. Native resources are released after this handler is invoked. Parameter `hasError` indicates whether connection was closed as a result of some error.
 
-0 - no repeat
-
-`<preference name="AnimatedSplashScreenAnimationRepeatCount" value="0" />`
-
-#### iOS
-
-IOS Images Order:
-
-`<preference name="AnimatedSplashScreenIosImages" value="animated-1.png,animated-2.png,animated-3.png,animated-4.png,animated-5.png" />`
-
-`...`
-
-IOS Images paths:
-
-`<platform name="ios">`
-
-`...`
-
-`<custom-resource catalog="animated-1" idiom="universal" scale="1x" src="resources/ios/splash/animated-1.png" type="image" />`
-
-`<custom-resource catalog="animated-2" idiom="universal" scale="1x" src="resources/ios/splash/animated-2.png" type="image" />`
-
-`...</platform>`
-`
-#### Android
-
-Android Images Order:
-
-`<preference name="AnimatedSplashScreenAndroidImages" value="animated1,animated2,animated3,animated4,animated5" />`
-
-`...`
-
-Android Images paths:
+#### `onError: (message: string) => void`
+Invoked when some error occurs during connection.
 
 
-`<platform name="android">`
+### Methods
+#### `start(host, port, onSuccess?, onError?): void`
+Establishes connection with the remote host.
 
-`...`
+| parameter   | type          | description |
+| ----------- |-----------------------------|--------------|
+| `delay`     | `number`                    | delay | |
+| `interval`  | `number`                    | interval |
+| `onSuccess` | `() => void`                | Success callback - called after successfull connection to the remote host. (optional)|
+| `onError`   | `(message: string) => void` | Error callback - called when some error occurs during connecting to the remote host. (optional)|
 
-`<resource-file src="resources/android/splash/animated-1.png" target="app/src/main/res/drawable-port-xxxhdpi/animated1.png" />`
-`<resource-file src="resources/android/splash/animated-2.png" target="app/src/main/res/drawable-port-xxxhdpi/animated2.png" />`
 
-`...</platform>`
+#### `stop(onSuccess?, onError?): void`
+Closes the connection. `onClose` event handler is called when connection is successfuly closed.
 
-##### NOTE: Android screen sizes:
-(in example code, image has 1920 x 1280 px size, so it should be placed to drawable-port-xxxhdpi)
+| parameter   | type          | description |
+| ----------- |-----------------------------|--------------|
+| `onSuccess` | `() => void`                | Success callback, called after connection is successfully closed. `onClose` event handler is called before that callback. (optional)|
+| `onError`   | `(message: string) => void` | Error callback, called when some error occurs during this procedure. (optional)|
 
-LDPI:
-* Portrait: 200 x 320 px
-* Landscape: 320 x 200 px
 
-MDPI:
-* Portrait: 320 x 480 px
-* Landscape: 480 x 320 px
-
-HDPI:
-* Portrait: 480 x 800 px
-* Landscape: 800 x 480 px
-
-XHDPI:
-* Portrait: 720 x 1280 px
-* Landscape: 1280 x 720 px
-
-XXHDPI:
-* Portrait: 960 x 1600 px
-* Landscape: 1600 x 960 px
-
-XXXHDPI:
-* Portrait: 1280 x 1920 px
-* Landscape: 1920 x 1280 px
 
 ## What's new
- - 1.0.0 - initial code, added iOS support
- - 1.0.1 - added config params, updated iOS platform
- - 1.0.2 - added Android source
- - 1.0.4 - optimized Android source
- - 1.0.8 - updated Android theme
- - 1.1.0 - stable version with iOS and Android support
- - 1.1.2 - Android image paths fixes
+ - 1.0.0 - initial code

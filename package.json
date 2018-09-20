@@ -1,0 +1,58 @@
+{
+  "name": "cordova-plugin-timer",
+  "version": "1.0.0",
+  "description": "Cordova Native Timer Plugin",
+  "types": "./types/index.d.ts",
+  "cordova": {
+    "id": "cordova-plugin-timer",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kitolog/cordova-plugin-timer"
+  },
+  "bugs": {
+    "url": "https://github.com/kitolog/cordova-plugin-timer"
+  },
+  "keywords": [
+    "cordova",
+    "timer",
+    "interval",
+    "native",
+    "native timer",
+    "ios timer",
+    "android timer",
+    "cordova timer",
+    "android interval",
+    "ios interval",
+    "cordova interval",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "scripts": {
+    "test": "npm run jshint",
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova-android": ">=3.6.0"
+      },
+      "4.0.0": {
+        "cordova-android": ">=3.6.0"
+      },
+      "6.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "author": "kitolog",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "jshint": "^2.6.0"
+  }
+}
