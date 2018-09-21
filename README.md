@@ -49,25 +49,25 @@ timer.stop();
 ## API
 ### Event handlers
 #### `onTick: (data: int) => void`
-Invoked after new batch of data is received by the client. Data are represented as typed array of bytes (`Uint8Array`).
+Invoked after new tick is received by the timer.
 
 #### `onStop: (hasError: boolean) => void`
-Invoked after connection close. Native resources are released after this handler is invoked. Parameter `hasError` indicates whether connection was closed as a result of some error.
+Invoked after timer was stopped.
 
 #### `onError: (message: string) => void`
-Invoked when some error occurs during connection.
+Invoked when some error occurs during timer process.
 
 
 ### Methods
-#### `start(host, port, onSuccess?, onError?): void`
+#### `start(delay, interval, onSuccess?, onError?): void`
 Establishes connection with the remote host.
 
 | parameter   | type          | description |
 | ----------- |-----------------------------|--------------|
-| `delay`     | `number`                    | delay | |
-| `interval`  | `number`                    | interval |
-| `onSuccess` | `() => void`                | Success callback - called after successfull connection to the remote host. (optional)|
-| `onError`   | `(message: string) => void` | Error callback - called when some error occurs during connecting to the remote host. (optional)|
+| `delay`     | `number`                    | timer delay | |
+| `interval`  | `number`                    | timer tick interval |
+| `onSuccess` | `() => void`                | Success callback - called after successfull timer start. (optional)|
+| `onError`   | `(message: string) => void` | Error callback - called when some error occurs during timer start. (optional)|
 
 
 #### `stop(onSuccess?, onError?): void`
@@ -75,7 +75,7 @@ Closes the connection. `onClose` event handler is called when connection is succ
 
 | parameter   | type          | description |
 | ----------- |-----------------------------|--------------|
-| `onSuccess` | `() => void`                | Success callback, called after connection is successfully closed. `onClose` event handler is called before that callback. (optional)|
+| `onSuccess` | `() => void`                | Success callback, called after timer was stopped. (optional)|
 | `onError`   | `(message: string) => void` | Error callback, called when some error occurs during this procedure. (optional)|
 
 
