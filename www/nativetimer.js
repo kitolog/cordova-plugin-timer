@@ -30,6 +30,7 @@ NativeTimer.ErrorType[NativeTimer.ErrorType.GENERAL = 0] = "general";
 
 function NativeTimer() {
     this._state = NativeTimer.State.STOPPED;
+    this.timerKey = guid();
     this.onTick = function () {
         console.log('On timer tick');
     };
@@ -40,7 +41,28 @@ function NativeTimer() {
         console.error('On timer error');
         console.error(e);
     };
-    this.timerKey = guid();
+
+    this.on = function (eventName, callback) {
+        if ((typeof eventName === 'string') && (typeof callback === 'function')) {
+            switch (eventName) {
+                case 'tick':
+                    this.onTick = function (e) {
+                        callback(e);
+                    };
+                    break;
+                case 'stop':
+                    this.onStop = function (e) {
+                        callback(e);
+                    };
+                    break;
+                case 'error':
+                    this.onError = function (e) {
+                        callback(e);
+                    };
+                    break;
+            }
+        }
+    };
 }
 
 NativeTimer.prototype.start = function (delay, interval, success, error) {

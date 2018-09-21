@@ -57,6 +57,9 @@ Invoked after timer was stopped.
 #### `onError: (message: string) => void`
 Invoked when some error occurs during timer process.
 
+#### `on: (eventName: string, callback: function) => void`
+Syntax sugar for the event handlers (onTick, onStop, onError)
+eventName: `error`, `tick`, `stop` 
 
 ### Methods
 #### `start(delay, interval, onSuccess?, onError?): void`
@@ -82,3 +85,4 @@ Closes the connection. `onClose` event handler is called when connection is succ
 
 ## What's new
  - 1.0.0 - initial code
+ - 1.0.1 - added common event handler
