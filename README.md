@@ -86,3 +86,5 @@ Closes the connection. `onClose` event handler is called when connection is succ
 ## What's new
  - 1.0.0 - initial code
  - 1.0.1 - added common event handler
+
+Appelian, 2015
